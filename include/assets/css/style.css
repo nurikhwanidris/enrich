@@ -1,0 +1,12 @@
+.table>tbody>tr>*,
+.table>thead>tr>* {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.topright {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+}
