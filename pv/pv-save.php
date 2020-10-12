@@ -10,6 +10,7 @@ $SerialNum = $_POST['SerialNum'];
 $ReferenceNum = $_POST['ReferenceNum'];
 $PaymentOption = $_POST['PaymentOption'];
 $OnlinePayTo = $_POST['OnlinePayTo'];
+$AccNumber = $_POST['AccNumber'];
 $BankName = $_POST['BankName'];
 $ChequePayTo = $_POST['ChequePayTo'];
 $ChequeBank = $_POST['ChequeBank'];
@@ -36,7 +37,7 @@ if (mysqli_num_rows($result) > 1) {
     echo $SerialNum . " dah wujud";
 } else {
     // Insert into database
-    $PV = "INSERT INTO pv (SerialNum, ReferenceNum, PaymentOption, OnlinePayTo, BankName, ChequePayTo, ChequeBank, ChequeAccount, CashPayTo, CashIC) VALUES('$SerialNum','$ReferenceNum','$PaymentOption','$OnlinePayTo','$BankName','$ChequePayTo','$ChequeBank','$ChequeAccount','$CashPayTo','$CashIC')";
+    $PV = "INSERT INTO pv (SerialNum, ReferenceNum, PaymentOption, OnlinePayTo, AccNumber, BankName, ChequePayTo, ChequeBank, ChequeAccount, CashPayTo, CashIC) VALUES('$SerialNum','$ReferenceNum','$PaymentOption','$OnlinePayTo','$AccNumber','$BankName','$ChequePayTo','$ChequeBank','$ChequeAccount','$CashPayTo','$CashIC')";
 
     $PV_items = "INSERT INTO pv_items (pv_id, Item1Desc, Item1Total, Item2Desc, Item2Total, Item3Desc, Item3Total, Item4Desc, Item4Total, GrandTotal) VALUES ('$SerialNum','$Item1Desc','$Item1Total','$Item2Desc','$Item2Total','$Item3Desc','$Item3Total','$Item4Desc','$Item4Total','$GrandTotal')";
 

@@ -15,6 +15,8 @@
     <!-- Custome CSS -->
     <link rel="stylesheet" href="/enrich/include/assets/css/style.css">
 
+
+
     <title><?= $title; ?></title>
 </head>
 
