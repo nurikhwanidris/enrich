@@ -7,7 +7,7 @@
 <!-- Display All Data -->
 <?php
 // Get Data from PV
-$sql = "SELECT pv.SerialNum, pv.PaymentOption, pv.OnlinePayTo, pv.AccNumber, pv.BankName, pv.ChequePayTo, pv.ChequeBank, pv.ChequeAccount, pv.CashPayTo, pv.CashIC, pv_items.GrandTotal FROM pv_items, pv GROUP BY pv.SerialNum ORDER BY pv.id DESC";
+$sql = "SELECT * FROM pv INNER JOIN pv_items ON pv.SerialNum = pv_items.pv_id GROUP BY pv.SerialNum ORDER BY pv.ID DESC";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -32,17 +32,13 @@ $result = mysqli_query($conn, $sql);
 
 <!-- Content -->
 <div class="container">
-    <div class="row" style="background-color:cadetblue;">
-        <h3 class="m-3 text-white">Manage your PV here</h3>
-    </div>
     <div class="col-md-12">
+        <div class="row my-3" style="background-color:cadetblue;">
+            <h3 class="m-3 text-white">Manage your PV here</h3>
+        </div>
         <div class="row my-2">
             <div class="col-md-2">
                 <a href="../pv/add"><button class="btn btn-primary">+ Add New</button></a>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-secondary">All</button>
-                <button class="btn btn-secondary">New</button>
             </div>
         </div>
         <div class="my-3">
@@ -52,8 +48,8 @@ $result = mysqli_query($conn, $sql);
                         <th>#</th>
                         <th>PV Ref Num</th>
                         <th>Pay to</th>
+                        <th>Method</th>
                         <th>Total</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +57,7 @@ $result = mysqli_query($conn, $sql);
                     <?php while ($rowPV = mysqli_fetch_array($result)) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
-                            <td><a href="view?PV=<?= $rowPV['SerialNum']; ?>"><?= $rowPV['SerialNum']; ?></a></td>
+                            <td><a href="view?PV=<?= $rowPV['SerialNum']; ?>" target="_blank"><?= $rowPV['SerialNum']; ?></a></td>
                             <td>
                                 <?php
                                 if ($rowPV['OnlinePayTo']) {
@@ -73,8 +69,8 @@ $result = mysqli_query($conn, $sql);
                                 }
                                 ?>
                             </td>
-                            <td>2,800.00</td>
-                            <td><a href="#">Print</a>&nbsp;<a href="#">Edit</a>&nbsp;<a href="#">Delete</a></td>
+                            <td><?= $rowPV['PaymentOption']; ?></td>
+                            <td>RM<?= $rowPV['GrandTotal']; ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
@@ -82,7 +78,24 @@ $result = mysqli_query($conn, $sql);
         </div>
     </div>
 </div>
+<!-- Print JSON -->
+<script>
+    function rvOffices() {
+        $.ajax({
+            url: 'https://api.greenhouse.io/v1/boards/roivantsciences/offices',
+            type: 'GET',
+            dataType: 'text',
+            success: function(data) {
+                var json_result = JSON.parse(data);
+                //console.log(json_result); // The whole JSON
+                console.log(json_result.offices[0].name);
+            }
+        });
+    }
+    rvOffices();
+</script>
 
+<!-- Datatable -->
 <script>
     $(document).ready(function() {
         $('#dtBasicExample').DataTable();
