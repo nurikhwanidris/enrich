@@ -107,5 +107,12 @@ $result = mysqli_query($conn, $sql);
     });
 </script>
 
+<!-- Active nav script -->
+<script>
+    $(function() {
+        $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+    });
+</script>
+
 <!-- Footer -->
 <?php include('../include/assets/templates/footer.php') ?>

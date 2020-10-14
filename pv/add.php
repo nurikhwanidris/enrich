@@ -252,6 +252,13 @@ $serial = '' . str_pad($serialNum, 4, '0', STR_PAD_LEFT);
     }
 </script>
 
+<!-- Active nav script -->
+<script>
+    $(function() {
+        $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+    });
+</script>
+
 <!-- Type of Payment -->
 <script>
     $(function() {
