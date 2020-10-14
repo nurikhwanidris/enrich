@@ -8,7 +8,9 @@
 <!-- Display PV details from database -->
 <?php
 
+// Get PV from the URL
 $SerialNum = $_GET['PV'];
+
 // Get from main PV table
 $sql = "SELECT * FROM pv WHERE SerialNum ='$SerialNum'";
 $result = mysqli_query($conn, $sql);
