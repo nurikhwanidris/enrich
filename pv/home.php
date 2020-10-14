@@ -50,6 +50,8 @@ $result = mysqli_query($conn, $sql);
                         <th>Pay to</th>
                         <th>Method</th>
                         <th>Total</th>
+                        <th>Created at</th>
+                        <th>Modified at</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +73,8 @@ $result = mysqli_query($conn, $sql);
                             </td>
                             <td><?= $rowPV['PaymentOption']; ?></td>
                             <td>RM<?= $rowPV['GrandTotal']; ?></td>
+                            <td><?= $rowPV['CreatedAt']; ?></td>
+                            <td><?= $rowPV['ModifiedAt']; ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>

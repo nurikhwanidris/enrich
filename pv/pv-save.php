@@ -29,6 +29,7 @@ if (isset($_POST['submit'])) {
     $Item4Desc = $_POST['Item4Desc'];
     $Item4Total = $_POST['Item4Total'];
     $GrandTotal = $_POST['GrandTotal'];
+    $CreatedAt = date('Y-m-d h:i:sa');
 
 
     // Check if PV number already exists
@@ -38,7 +39,7 @@ if (isset($_POST['submit'])) {
         echo $SerialNum . " dah wujud";
     } else {
         // Insert into database
-        $PV = "INSERT INTO pv (SerialNum, ReferenceNum, PaymentOption, OnlinePayTo, AccNumber, BankName, ChequePayTo, ChequeBank, ChequeAccount, CashPayTo, CashIC) VALUES('$SerialNum','$ReferenceNum','$PaymentOption','$OnlinePayTo','$AccNumber','$BankName','$ChequePayTo','$ChequeBank','$ChequeAccount','$CashPayTo','$CashIC')";
+        $PV = "INSERT INTO pv (SerialNum, ReferenceNum, PaymentOption, OnlinePayTo, AccNumber, BankName, ChequePayTo, ChequeBank, ChequeAccount, CashPayTo, CashIC,CreatedAt) VALUES('$SerialNum','$ReferenceNum','$PaymentOption','$OnlinePayTo','$AccNumber','$BankName','$ChequePayTo','$ChequeBank','$ChequeAccount','$CashPayTo','$CashIC','$CreatedAt')";
 
         $PV_items = "INSERT INTO pv_items (pv_id, Item1Desc, Item1Total, Item2Desc, Item2Total, Item3Desc, Item3Total, Item4Desc, Item4Total, GrandTotal) VALUES ('$SerialNum','$Item1Desc','$Item1Total','$Item2Desc','$Item2Total','$Item3Desc','$Item3Total','$Item4Desc','$Item4Total','$GrandTotal')";
 
@@ -68,6 +69,7 @@ if (isset($_POST['save'])) {
     $ChequeAccount = $_POST['ChequeAccount'];
     $CashPayTo = $_POST['CashPayTo'];
     $CashIC = $_POST['CashIC'];
+    $ModifiedAt = date('Y-m-d h:i:sa');
 
     // Get Item details
     $Item1Desc = $_POST['Item1Desc'];
@@ -90,7 +92,9 @@ if (isset($_POST['save'])) {
     ChequeBank = '$ChequeBank',
     ChequeAccount = '$ChequeAccount',
     CashPayTo = '$CashPayTo',
-    CashIC = '$CashIC' WHERE SerialNum = '$SerialNum'
+    CashIC = '$CashIC',
+    ModifiedAt = '$ModifiedAt'
+    WHERE SerialNum = '$SerialNum'
     ";
 
     $PVitems = "UPDATE pv_items SET
@@ -102,7 +106,8 @@ if (isset($_POST['save'])) {
     Item3Total = '$Item3Total',
     Item4Desc = '$Item4Desc',
     Item4Total = '$Item4Total',
-    GrandTotal = '$GrandTotal' WHERE pv_id = '$SerialNum'
+    GrandTotal = '$GrandTotal'
+     WHERE pv_id = '$SerialNum'
     ";
 
     if ($result = mysqli_query($conn, $PV) && $resultPV = mysqli_query($conn, $PVitems)) {
