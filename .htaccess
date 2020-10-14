@@ -1,5 +1,5 @@
 RewriteEngine On
-Redirect 301 /enrich/index /enrich/pv/home
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+Redirect 301 /enrich/index /enrich/pv/home
 RewriteRule ^/enrich/pv/view/([/\.]+)? /view?PV=$1 [L]
