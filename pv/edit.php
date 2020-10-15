@@ -238,9 +238,6 @@ $rowPVItem = mysqli_fetch_assoc($resultItem);
     </div>
 </div>
 
-<!-- Footer -->
-<?php include('../include/assets/templates/footer.php') ?>
-
 <!-- Space between account numbers -->
 <script>
     document.getElementById('AccNumber').addEventListener('input', function(e) {

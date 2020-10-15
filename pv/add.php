@@ -226,10 +226,6 @@ $serial = '' . str_pad($serialNum, 4, '0', STR_PAD_LEFT);
     </div>
 </div>
 
-<!-- Footer -->
-<?php include('../include/assets/templates/footer.php')
-?>
-
 <!-- Space between account numbers -->
 <script>
     document.getElementById('AccNumber').addEventListener('input', function(e) {
