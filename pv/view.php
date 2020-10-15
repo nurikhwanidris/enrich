@@ -272,9 +272,6 @@ $rowPVitem = mysqli_fetch_assoc($resultItem);
     <!-- Footer -->
 </div>
 
-<!-- Footer -->
-<?php include('../include/assets/templates/footer.php') ?>
-
 <!-- Bullshit html to pdf -->
 <script>
     window.onload = function() {

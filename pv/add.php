@@ -34,7 +34,7 @@ $serial = '' . str_pad($serialNum, 4, '0', STR_PAD_LEFT);
                     $pv = $_GET['PV'];
                     echo '
                     <div class="alert alert-success alert-dismissible fade show my-4" role="alert">
-                    <strong>' . $pv . ' berjaya disimpan</strong> Klik <a href="view?PV=' . $pv . '">sini</a> untuk preview
+                    <strong>' . $pv . ' is successfully saved</strong>  <a href="view?PV=' . $pv . '">sini</a> untuk preview
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
