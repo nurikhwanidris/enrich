@@ -13,4 +13,14 @@
 <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 </body>
 
+<!-- Footer -->
+<footer class="page-footer font-small bg-dark sticky-bottom">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright :
+        <a href="https://enrichtravel.my/"> Enrich Travelogue</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
 </html>
