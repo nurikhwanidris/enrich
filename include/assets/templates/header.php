@@ -15,7 +15,8 @@
     <!-- Custome CSS -->
     <link rel="stylesheet" href="/enrich/include/assets/css/style.css">
 
-
+    <!-- Fav Icon -->
+    <link rel="icon" href="/enrich/include/assets/img/fav.ico" sizes="16x16">
 
     <title><?= $title; ?></title>
 </head>
