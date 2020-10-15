@@ -31,57 +31,59 @@ $result = mysqli_query($conn, $sql);
 <link rel="stylesheet" href="/enrich/include/assets/css/addons/datatables.min.css">
 
 <!-- Content -->
-<div class="container">
-    <div class="col-md-12">
-        <div class="row my-3" style="background-color:cadetblue;">
-            <h3 class="m-3 text-white">Manage your PV here</h3>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-2">
-                <a href="../pv/add"><button class="btn btn-primary">+ Add New</button></a>
+<main>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row my-3" style="background-color:cadetblue;">
+                <h3 class="m-3 text-white">Manage your PV here</h3>
+            </div>
+            <div class="row my-2">
+                <div class="col-md-2">
+                    <a href="../pv/add"><button class="btn btn-primary">+ Add New</button></a>
+                </div>
+            </div>
+            <div class="my-3">
+                <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>PV Ref Num</th>
+                            <th>Pay to</th>
+                            <th>Method</th>
+                            <th>Total</th>
+                            <th>Created at</th>
+                            <th>Modified at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php while ($rowPV = mysqli_fetch_array($result)) : ?>
+                            <tr>
+                                <td><?= $i++; ?></td>
+                                <td><a href="view?PV=<?= $rowPV['SerialNum']; ?>" target="_blank"><?= $rowPV['SerialNum']; ?></a></td>
+                                <td>
+                                    <?php
+                                    if ($rowPV['OnlinePayTo']) {
+                                        echo $rowPV['OnlinePayTo'];
+                                    } elseif ($rowPV['ChequePayTo']) {
+                                        echo $rowPV['ChequePayTo'];
+                                    } elseif ($rowPV['CashPayTo']) {
+                                        echo $rowPV['CashPayTo'];
+                                    }
+                                    ?>
+                                </td>
+                                <td><?= $rowPV['PaymentOption']; ?></td>
+                                <td>RM<?= $rowPV['GrandTotal']; ?></td>
+                                <td><?= $rowPV['CreatedAt']; ?></td>
+                                <td><?= $rowPV['ModifiedAt']; ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="my-3">
-            <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>PV Ref Num</th>
-                        <th>Pay to</th>
-                        <th>Method</th>
-                        <th>Total</th>
-                        <th>Created at</th>
-                        <th>Modified at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php while ($rowPV = mysqli_fetch_array($result)) : ?>
-                        <tr>
-                            <td><?= $i++; ?></td>
-                            <td><a href="view?PV=<?= $rowPV['SerialNum']; ?>" target="_blank"><?= $rowPV['SerialNum']; ?></a></td>
-                            <td>
-                                <?php
-                                if ($rowPV['OnlinePayTo']) {
-                                    echo $rowPV['OnlinePayTo'];
-                                } elseif ($rowPV['ChequePayTo']) {
-                                    echo $rowPV['ChequePayTo'];
-                                } elseif ($rowPV['CashPayTo']) {
-                                    echo $rowPV['CashPayTo'];
-                                }
-                                ?>
-                            </td>
-                            <td><?= $rowPV['PaymentOption']; ?></td>
-                            <td>RM<?= $rowPV['GrandTotal']; ?></td>
-                            <td><?= $rowPV['CreatedAt']; ?></td>
-                            <td><?= $rowPV['ModifiedAt']; ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        </div>
     </div>
-</div>
+</main>
 <!-- Print JSON -->
 <script>
     function rvOffices() {
