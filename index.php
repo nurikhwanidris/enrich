@@ -1,69 +1,112 @@
+<!-- Get DB Conn -->
+<?php include('../enrich/include/core/db/dbcon.php') ?>
+
 <!-- Title -->
 <?php $title = "Login" ?>
+
+<!-- Login -->
+<?php
+
+if (isset($_POST['signin'])) {
+    if (empty($_POST['email']) || empty($_POST['pwd'])) {
+        $alert = "alert-danger";
+        $message = "Fields can't be empty";
+    } else {
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
+
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                if (password_verify($pwd, $row['pwd'])) {
+                    // Return true
+                    $_SESSION['fname'] = $row['fname'];
+
+                    $alert = "alert-success";
+                    $message = "Welcome " . $_SESSION['fname'] . "! ";
+                    $message .= "<hr>";
+                    $message .= "You will be redirected in 5 seconds";
+                    echo "
+                     <script>
+                        window.setTimeout(function() {
+                            window.location.href = '/enrich/pv/home';
+                        }, 5000);
+                     </script>
+                    ";
+                } else {
+                    // Return false
+                    $alert = "alert-danger";
+                    $message = "Password did not match any of our records";
+                }
+            }
+        } else {
+            $alert = "alert-danger";
+            $message = "Error woi! " . mysqli_error($conn) . " Panggil Ikhwan";
+        }
+    }
+}
+
+?>
 
 <!-- Header -->
 <?php include('../enrich/include/assets/templates/header.php') ?>
 
-<style>
-    #badan {
-        margin: 0;
-        padding: 0;
-        background-color: #17a2b8;
-        height: 100vh;
-    }
-
-    #login .container #login-row #login-column #login-box {
-        margin-top: 120px;
-        max-width: 600px;
-        height: 320px;
-        border: 1px solid #9C9C9C;
-        background-color: #EAEAEA;
-    }
-
-    #login .container #login-row #login-column #login-box #login-form {
-        padding: 20px;
-    }
-
-    #login .container #login-row #login-column #login-box #login-form #register-link {
-        margin-top: -85px;
-    }
-</style>
-
 <!-- Content -->
-<div id="badan">
-    <div id="login">
-        <!-- <h3 class="text-center text-white pt-5">Login form</h3> -->
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6 my-4">
-                    <div class="text-center">
-                        <img src="include\assets\img\logo-white.png" alt="" class="img mx-auto">
-                    </div>
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
-                            <h3 class="text-center text-info">Login</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <button class="btn btn-primary" name="submit" type="submit">Submit</button>
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
-                            </div>
-                        </form>
-                    </div>
+<div class="container">
+    <div class="col-md-6 mx-auto my-4 text-center">
+        <img src="/enrich/include/assets/img/logo-black.png" alt="" srcset="" class="img my-4">
+
+        <!-- Default form login -->
+        <form class="text-center border border-light p-5 md-form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+
+            <p class="h4 mb-4">Sign in</p>
+            <div class="form-row my-4">
+                <!-- Email -->
+                <input type="email" name="email" id="" class="form-control" placeholder="Email">
+
+                <!-- Password -->
+                <input type="password" name="pwd" id="" class="form-control" placeholder="Password">
+            </div>
+
+            <div class="d-flex justify-content-around">
+                <div>
+                    <!-- Forgot password -->
+                    <a href="">Forgot password?</a>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<!-- Footer -->
-<?php include('../enrich/include/assets/templates/footer.php') ?>
+            <!-- Sign in button -->
+            <button class="btn btn-info btn-block my-4" type="submit" name="signin">Sign in</button>
+
+            <!-- Register -->
+            <p>Not a member?
+                <a href="">Register</a>
+            </p>
+
+        </form>
+        <!-- Default form login -->
+    </div>
+    <?php if (isset($_POST['signin'])) { ?>
+        <div class="col-md-6 mx-auto my-4">
+            <div class="alert <?= $alert; ?> text-center" role="alert">
+                <?= $message; ?>
+            </div>
+        </div>
+    <?php  } ?>
+    <?php if (isset($_GET['msg']) == "logout") { ?>
+        <div class="col-md-6 mx-auto my-4">
+            <div class="alert alert-success text-center" role="alert">
+                You've logged out
+            </div>
+        </div>
+    <?php  } ?>
+
+    <!-- Dimiss the alert -->
+    <script>
+        $(".alert").delay(4000).slideUp(200, function() {
+            $(this).alert('close');
+        });
+    </script>
+</div>

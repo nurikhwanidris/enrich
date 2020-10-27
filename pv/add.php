@@ -28,7 +28,7 @@ $serial = '' . str_pad($serialNum, 4, '0', STR_PAD_LEFT);
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <form action="pv-save.php" method="POST">
+            <form action="pv-save.php" method="POST" class="md-form">
                 <?php
                 if (isset($_GET['notify'])) {
                     $pv = $_GET['PV'];
@@ -52,13 +52,11 @@ $serial = '' . str_pad($serialNum, 4, '0', STR_PAD_LEFT);
                             <div class="col-lg-6">
                                 <div class="md-form">
                                     <input value="<?= "PV" . date('Ymd') . '-' . $serial; ?>" type="text" name="SerialNum" id="SerialNum" class="form-control disabled">
-                                    <label for="SerialNum">Serial Number</label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="md-form form-sm">
                                     <input type="text" name="ReferenceNum" id="ReferenceNum" class="form-control form-control-sm" value="<?= "Ubah Ni" . '/' . date('M'); ?>">
-                                    <label for="ReferenceNum">Reference Number</label>
                                 </div>
                             </div>
                         </div>

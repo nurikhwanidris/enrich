@@ -3,41 +3,34 @@
 
 <?php
 if (isset($_POST['createUser'])) {
-    if (!empty($_POST['fName'])) {
-        $fName = $_POST['fName'];
+    if (empty($_POST['fName']) || empty($_POST['lName']) || empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
+        $alert = "alert-danger";
+        $message = "Penuhkan semua ruang kosong";
     } else {
-        echo "First Name can't be empty";
-    }
-    if (!empty($_POST['lName'])) {
-        $lName = $_POST['lName'];
-    } else {
-        echo "Last Name can't be empty";
-    }
-    if (!empty($_POST['username'])) {
-        $username = $_POST['username'];
-    } else {
-        echo "Username can't be empty";
-    }
-    if (!empty($_POST['email'])) {
-        $email = $_POST['email'];
-    } else {
-        echo "Email can't be empty";
-    }
-    $password = $_POST['password'];
-    // Check if user already exist
-    $check = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($conn, $check);
+        $fName = mysqli_real_escape_string($conn, $_POST['fName']);
+        $lName = mysqli_real_escape_string($conn, $_POST['lName']);
+        $username = mysqli_real_escape_string($conn, $_POST['username']);
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    if (mysqli_num_rows($result) > 1) {
-        echo "User dah wujud ni";
-    } else {
-        $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
-        $user = "INSERT INTO users (username, email, pwd, fname, lname) VALUES ('$username', '$email', '$passwordHashed','$fName', '$lName')";
+        // Check if user already exist
+        $check = "SELECT * FROM users WHERE email = '$email'";
+        $result = mysqli_query($conn, $check);
 
-        if ($result = mysqli_query($conn, $user)) {
-            echo "Berjaya insert user";
+        if (mysqli_num_rows($result) > 0) {
+            $alert = "alert-danger";
+            $message = "User sudah wujud dalam database!";
         } else {
-            echo "Error woi " . mysqli_error($conn) . " Panggil Ikhwan";
+            $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+            $user = "INSERT INTO users (username, email, pwd, fname, lname) VALUES ('$username', '$email', '$passwordHashed','$fName', '$lName')";
+
+            if ($result = mysqli_query($conn, $user)) {
+                $alert = "alert-success";
+                $message = "Berjaya insert user";
+            } else {
+                $alert = "alert-danger";
+                $message = "Error woi " . mysqli_error($conn) . " Panggil Ikhwan";
+            }
         }
     }
 }
@@ -49,9 +42,6 @@ if (isset($_POST['createUser'])) {
 
 <!-- Header -->
 <?php include('../assets/templates/header.php') ?>
-
-<!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- JQuery UI -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -112,6 +102,12 @@ if (isset($_POST['createUser'])) {
                 <!-- Default form register -->
             </div>
         </div>
+        <?php
+        if (isset($_POST['createUser'])) { ?>
+            <div class="alert <?= $alert; ?> alert-dismissible fade show my-4" role="alert">
+                <?= $message; ?>
+            </div>
+        <?php } ?>
     </div>
     <script>
         function checkPasswordMatch() {
@@ -125,6 +121,7 @@ if (isset($_POST['createUser'])) {
         $(document).ready(function() {
             $("#txtConfirmPassword").keyup(checkPasswordMatch);
         });
+        //$(".alert").alert('close')
     </script>
     <!-- Footer -->
     <?php
