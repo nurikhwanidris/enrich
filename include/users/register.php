@@ -11,7 +11,15 @@ if (isset($_POST['createUser'])) {
         $lName = mysqli_real_escape_string($conn, $_POST['lName']);
         $username = mysqli_real_escape_string($conn, $_POST['username']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+        // Password generation
+        function password_generate($chars)
+        {
+            $data = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz!@#-^&*()_';
+            return substr(str_shuffle($data), 0, $chars);
+        }
+
+        $password = password_generate(12);
 
         // Check if user already exist
         $check = "SELECT * FROM users WHERE email = '$email'";
@@ -21,12 +29,36 @@ if (isset($_POST['createUser'])) {
             $alert = "alert-danger";
             $message = "User sudah wujud dalam database!";
         } else {
-            $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
-            $user = "INSERT INTO users (username, email, pwd, fname, lname) VALUES ('$username', '$email', '$passwordHashed','$fName', '$lName')";
+            //$passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+            $user = "INSERT INTO users (username, email, pwd, fname, lname) VALUES ('$username', '$email', '$password','$fName', '$lName')";
 
             if ($result = mysqli_query($conn, $user)) {
                 $alert = "alert-success";
                 $message = "Berjaya insert user";
+
+                // Email new registration to user
+                $to = $email;
+                $subject = "User Registration";
+                $txt = "
+                <html>
+                    <head>
+                        <title>User Registration</title>
+                    </head>
+                    <body>
+                        <p>This is your details</p><hr>
+                        First Name : " . $fName . "<br>
+                        Last Name : " . $lName . "<br>
+                        Email : " . $email . "<br>
+                        Username : " . $username . "<br>
+                        Password : " . $password . "<br>
+                        <hr>
+                        <br>
+                        
+                    </body>
+                </html>";
+                $headers = "From: webmaster@enrichtravel.my";
+
+                mail($to, $subject, $txt, $headers);
             } else {
                 $alert = "alert-danger";
                 $message = "Error woi " . mysqli_error($conn) . " Panggil Ikhwan";
@@ -69,7 +101,6 @@ if (isset($_POST['createUser'])) {
                             <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name" name="lName">
                         </div>
                     </div>
-
                     <div class="form-row my-4">
                         <div class="col">
                             <!-- Username -->

@@ -1,6 +1,13 @@
 <!-- Get DB Conn -->
 <?php include('../enrich/include/core/db/dbcon.php') ?>
 
+<!-- Check if session exist -->
+<?php
+if ($_SESSION['fname']) {
+    header('Location:/enrich/pv/home');
+}
+?>
+
 <!-- Title -->
 <?php $title = "Login" ?>
 

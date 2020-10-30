@@ -1,13 +1,6 @@
-<!-- Check current page -->
-<?php
-
-$page = $_SERVER['REQUEST_URI'];
-
-?>
-
 <!--Navbar -->
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/enrich">
         <img src="/enrich/include/assets/img/logo-wording-white.png" width="auto" height="30" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +23,7 @@ $page = $_SERVER['REQUEST_URI'];
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuMenu">
                     <button class="dropdown-item" type="button" onclick="location.href = '/enrich/include/users/home';">View All</button>
-                    <button class="dropdown-item" type="button" onclick="location.href = '/enrich/pv/add';">Add PV</button>
+                    <button class="dropdown-item" type="button" onclick="location.href = '/enrich/include/users/register';">Add Employee</button>
                 </div>
             </li>
         </ul>
@@ -39,10 +32,8 @@ $page = $_SERVER['REQUEST_URI'];
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-default">
-                    <a class="dropdown-item" href="/enrich/include/users/logout">Logout</a>
-                    <!-- <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a> -->
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuMenu">
+                    <button class="dropdown-item" type="button" onclick="location.href = '/enrich/include/users/logout';">Logout</button>
                 </div>
             </li>
         </ul>
