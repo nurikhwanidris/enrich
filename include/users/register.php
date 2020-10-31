@@ -3,7 +3,7 @@
 
 <?php
 if (isset($_POST['createUser'])) {
-    if (empty($_POST['fName']) || empty($_POST['lName']) || empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
+    if (empty($_POST['fName']) || empty($_POST['lName']) || empty($_POST['username']) || empty($_POST['email'])) {
         $alert = "alert-danger";
         $message = "Penuhkan semua ruang kosong";
     } else {
@@ -34,7 +34,7 @@ if (isset($_POST['createUser'])) {
 
             if ($result = mysqli_query($conn, $user)) {
                 $alert = "alert-success";
-                $message = "Berjaya insert user";
+                $message = "Berjaya insert user <hr> Sila check email anda.";
 
                 // Email new registration to user
                 $to = $email;
@@ -45,18 +45,46 @@ if (isset($_POST['createUser'])) {
                         <title>User Registration</title>
                     </head>
                     <body>
-                        <p>This is your details</p><hr>
-                        First Name : " . $fName . "<br>
-                        Last Name : " . $lName . "<br>
-                        Email : " . $email . "<br>
-                        Username : " . $username . "<br>
-                        Password : " . $password . "<br>
-                        <hr>
-                        <br>
-                        
+                        <p>Welcome " . $fName . "</p>
+
+                        <table>
+                            <tr>
+                                <th style='text-align:left;'>First Name</th>
+                                <td>:</td>
+                                <td>" . $fName . "</td>
+                            </tr>
+                            <tr>
+                                <th style='text-align:left;'>Last Name</th>
+                                <td>:</td>
+                                <td>" . $lName . "</td>
+                            </tr>
+                            <tr>
+                                <th style='text-align:left;'>Username</th>
+                                <td>:</td>
+                                <td>" . $username . "</td>
+                            </tr>
+                            <tr>
+                                <th style='text-align:left;'>Email</th>
+                                <td>:</td>
+                                <td>" . $email . "</td>
+                            </tr>
+                            <tr>
+                                <th style='text-align:left;'>Password</th>
+                                <td>:</td>
+                                <td>" . $password . "</td>
+                            </tr>
+                        </table><br>
+                        <p>Please change your password by clicking <a href='localhost/enrich/user/password-change'>here</a></p>
                     </body>
-                </html>";
-                $headers = "From: webmaster@enrichtravel.my";
+                </html>
+                ";
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <webmaster@example.com>' . "\r\n";
+                $headers .= 'Cc: myboss@example.com' . "\r\n";
 
                 mail($to, $subject, $txt, $headers);
             } else {
@@ -83,7 +111,7 @@ if (isset($_POST['createUser'])) {
 
 <!-- Content -->
 <div class="container">
-    <div class="col-md-8 mx-auto my-4">
+    <div class="col-md-6 mx-auto my-4">
         <div class="card">
             <h5 class="card-header info-color white-text text-center py-4">
                 <strong>Register User</strong>
@@ -96,6 +124,8 @@ if (isset($_POST['createUser'])) {
                             <!-- First name -->
                             <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name" name="fName">
                         </div>
+                    </div>
+                    <div class="form-row my-4">
                         <div class="col">
                             <!-- Last name -->
                             <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name" name="lName">
@@ -106,26 +136,11 @@ if (isset($_POST['createUser'])) {
                             <!-- Username -->
                             <input type="text" id="defaultRegisterFormUsername" class="form-control mb-4" placeholder="Username" name="username">
                         </div>
-                        <div class="col">
-                            <!-- E-mail -->
-                            <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail" name="email">
-                        </div>
                     </div>
                     <div class="form-row my-4">
                         <div class="col">
-                            <!-- Password -->
-                            <input type="password" id="txtNewPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-                            <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4 text-left">
-                                At least 8 characters and 1 digit
-                            </small>
-
-                        </div>
-                        <div class="col">
-                            <!-- Confirm Password -->
-                            <input type="password" id="txtConfirmPassword" class="form-control" placeholder="Confirm password" aria-describedby="" name="password">
-                            <small id="CheckPasswordMatch" class="form-text text-muted mb-4 text-left">
-                                Please confirm your password
-                            </small>
+                            <!-- E-mail -->
+                            <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail" name="email">
                         </div>
                     </div>
                     <button name="createUser" class="btn btn-info my-4 btn-block" type="submit">Submit</button>
