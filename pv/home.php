@@ -61,9 +61,9 @@ $result = mysqli_query($conn, $sql);
                                 <?php $i = 1; ?>
                                 <?php while ($rowPV = mysqli_fetch_array($result)) : ?>
                                     <tr>
-                                        <td><?= $i++; ?></td>
-                                        <td><a href="view?PV=<?= $rowPV['SerialNum']; ?>" target="_blank"><?= $rowPV['SerialNum']; ?></a></td>
-                                        <td>
+                                        <td class="align-middle"><?= $i++; ?></td>
+                                        <td class="align-middle"><a href="view?PV=<?= $rowPV['SerialNum']; ?>" target="_blank"><?= $rowPV['SerialNum']; ?></a></td>
+                                        <td class="align-middle">
                                             <?php
                                             if ($rowPV['OnlinePayTo']) {
                                                 echo $rowPV['OnlinePayTo'];
@@ -74,10 +74,10 @@ $result = mysqli_query($conn, $sql);
                                             }
                                             ?>
                                         </td>
-                                        <td><?= $rowPV['PaymentOption']; ?></td>
-                                        <td>RM<?= $rowPV['GrandTotal']; ?></td>
-                                        <td><?= $rowPV['CreatedAt']; ?></td>
-                                        <td><?= $rowPV['ModifiedAt']; ?></td>
+                                        <td class="align-middle"><?= $rowPV['PaymentOption']; ?></td>
+                                        <td class="align-middle">RM<?= $rowPV['GrandTotal']; ?></td>
+                                        <td class="align-middle"><?= $rowPV['CreatedAt']; ?></td>
+                                        <td class="align-middle"><?= $rowPV['ModifiedAt']; ?></td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>
@@ -108,7 +108,11 @@ $result = mysqli_query($conn, $sql);
 <!-- Datatable -->
 <script>
     $(document).ready(function() {
-        $('#dtBasicExample').DataTable();
+        $('#dtBasicExample').DataTable({
+            "order": [
+                [1, "desc"]
+            ]
+        });
         $('.dataTables_length').addClass('bs-select');
     });
 </script>

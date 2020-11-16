@@ -3,7 +3,8 @@
 
 <!-- Check if session exist -->
 <?php
-if ($_SESSION['fname']) {
+if (isset($_SESSION['fname'])) {
+    echo $_SESSION['fname'];
     header('Location:/enrich/pv/home');
 }
 ?>
@@ -34,12 +35,12 @@ if (isset($_POST['signin'])) {
                     $alert = "alert-success";
                     $message = "Welcome " . $_SESSION['fname'] . "! ";
                     $message .= "<hr>";
-                    $message .= "You will be redirected in 5 seconds";
+                    $message .= "You will be redirected in 3 seconds";
                     echo "
                      <script>
                         window.setTimeout(function() {
                             window.location.href = '/enrich/pv/home';
-                        }, 5000);
+                        }, 3000);
                      </script>
                     ";
                 } else {
@@ -62,6 +63,20 @@ if (isset($_POST['signin'])) {
 
 <!-- Content -->
 <div class="container">
+    <?php if (isset($_POST['signin'])) : ?>
+        <div class="col-md-6 mx-auto my-4">
+            <div class="alert <?= $alert; ?> text-center" role="alert">
+                <?= $message; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['msg']) == "logout") : ?>
+        <div class="col-md-6 mx-auto my-4">
+            <div class="alert alert-success text-center" role="alert">
+                You've logged out
+            </div>
+        </div>
+    <?php endif; ?>
     <div class="col-md-6 mx-auto my-4 text-center">
         <img src="/enrich/include/assets/img/logo-black.png" alt="" srcset="" class="img my-4">
 
@@ -95,24 +110,9 @@ if (isset($_POST['signin'])) {
         </form>
         <!-- Default form login -->
     </div>
-    <?php if (isset($_POST['signin'])) { ?>
-        <div class="col-md-6 mx-auto my-4">
-            <div class="alert <?= $alert; ?> text-center" role="alert">
-                <?= $message; ?>
-            </div>
-        </div>
-    <?php  } ?>
-    <?php if (isset($_GET['msg']) == "logout") { ?>
-        <div class="col-md-6 mx-auto my-4">
-            <div class="alert alert-success text-center" role="alert">
-                You've logged out
-            </div>
-        </div>
-    <?php  } ?>
-
     <!-- Dimiss the alert -->
     <script>
-        $(".alert").delay(4000).slideUp(200, function() {
+        $(".alert").delay(3000).slideUp(200, function() {
             $(this).alert('close');
         });
     </script>

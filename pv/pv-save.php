@@ -7,28 +7,28 @@ require $_SERVER['DOCUMENT_ROOT'] . '/enrich/include/core/db/dbcon.php';
 
 if (isset($_POST['submit'])) {
     // Get pay to who from create PV
-    $SerialNum = $_POST['SerialNum'];
-    $ReferenceNum = $_POST['ReferenceNum'];
-    $PaymentOption = $_POST['PaymentOption'];
-    $OnlinePayTo = $_POST['OnlinePayTo'];
-    $AccNumber = $_POST['AccNumber'];
-    $BankName = $_POST['BankName'];
-    $ChequePayTo = $_POST['ChequePayTo'];
-    $ChequeBank = $_POST['ChequeBank'];
-    $ChequeAccount = $_POST['ChequeAccount'];
-    $CashPayTo = $_POST['CashPayTo'];
-    $CashIC = $_POST['CashIC'];
+    $SerialNum = mysqli_real_escape_string($conn, $_POST['SerialNum']);
+    $ReferenceNum = mysqli_real_escape_string($conn, $_POST['ReferenceNum']);
+    $PaymentOption = mysqli_real_escape_string($conn, $_POST['PaymentOption']);
+    $OnlinePayTo = mysqli_real_escape_string($conn, $_POST['OnlinePayTo']);
+    $AccNumber = mysqli_real_escape_string($connn, $_POST['AccNumber']);
+    $BankName = mysqli_real_escape_string($conn, $_POST['BankName']);
+    $ChequePayTo = mysqli_real_escape_string($conn, $_POST['ChequePayTo']);
+    $ChequeBank = mysqli_real_escape_string($conn, $_POST['ChequeBank']);
+    $ChequeAccount = mysqli_real_escape_string($conn, $_POST['ChequeAccount']);
+    $CashPayTo = mysqli_real_escape_string($conn, $_POST['CashPayTo']);
+    $CashIC = mysqli_real_escape_string($conn, $_POST['CashIC']);
 
     // Get Item details
-    $Item1Desc = $_POST['Item1Desc'];
-    $Item1Total = $_POST['Item1Total'];
-    $Item2Desc = $_POST['Item2Desc'];
-    $Item2Total = $_POST['Item2Total'];
-    $Item3Desc = $_POST['Item3Desc'];
-    $Item3Total = $_POST['Item3Total'];
-    $Item4Desc = $_POST['Item4Desc'];
-    $Item4Total = $_POST['Item4Total'];
-    $GrandTotal = $_POST['GrandTotal'];
+    $Item1Desc = mysqli_real_escape_string($conn, $_POST['Item1Desc']);
+    $Item1Total = mysqli_real_escape_string($conn, $_POST['Item1Total']);
+    $Item2Desc = mysqli_real_escape_string($conn, $_POST['Item2Desc']);
+    $Item2Total = mysqli_real_escape_string($conn, $_POST['Item2Total']);
+    $Item3Desc = mysqli_real_escape_string($conn, $_POST['Item3Desc']);
+    $Item3Total = mysqli_real_escape_string($conn, $_POST['Item3Total']);
+    $Item4Desc = mysqli_real_escape_string($conn, $_POST['Item4Desc']);
+    $Item4Total = mysqli_real_escape_string($conn, $_POST['Item4Total']);
+    $GrandTotal = mysqli_real_escape_string($conn, $_POST['GrandTotal']);
     $CreatedAt = date('Y-m-d h:i:sa');
 
 
@@ -58,29 +58,29 @@ if (isset($_POST['submit'])) {
 
 if (isset($_POST['save'])) {
     // Get pay to who from create PV
-    $SerialNum = $_POST['SerialNum'];
-    $ReferenceNum = $_POST['ReferenceNum'];
-    $PaymentOption = $_POST['PaymentOption'];
-    $OnlinePayTo = $_POST['OnlinePayTo'];
-    $AccNumber = $_POST['AccNumber'];
-    $BankName = $_POST['BankName'];
-    $ChequePayTo = $_POST['ChequePayTo'];
-    $ChequeBank = $_POST['ChequeBank'];
-    $ChequeAccount = $_POST['ChequeAccount'];
-    $CashPayTo = $_POST['CashPayTo'];
-    $CashIC = $_POST['CashIC'];
+    $SerialNum = mysqli_real_escape_string($conn, $_POST['SerialNum']);
+    $ReferenceNum = mysqli_real_escape_string($conn, $_POST['ReferenceNum']);
+    $PaymentOption = mysqli_real_escape_string($conn, $_POST['PaymentOption']);
+    $OnlinePayTo = mysqli_real_escape_string($conn, $_POST['OnlinePayTo']);
+    $AccNumber = mysqli_real_escape_string($connn, $_POST['AccNumber']);
+    $BankName = mysqli_real_escape_string($conn, $_POST['BankName']);
+    $ChequePayTo = mysqli_real_escape_string($conn, $_POST['ChequePayTo']);
+    $ChequeBank = mysqli_real_escape_string($conn, $_POST['ChequeBank']);
+    $ChequeAccount = mysqli_real_escape_string($conn, $_POST['ChequeAccount']);
+    $CashPayTo = mysqli_real_escape_string($conn, $_POST['CashPayTo']);
+    $CashIC = mysqli_real_escape_string($conn, $_POST['CashIC']);
     $ModifiedAt = date('Y-m-d h:i:sa');
 
     // Get Item details
-    $Item1Desc = $_POST['Item1Desc'];
-    $Item1Total = $_POST['Item1Total'];
-    $Item2Desc = $_POST['Item2Desc'];
-    $Item2Total = $_POST['Item2Total'];
-    $Item3Desc = $_POST['Item3Desc'];
-    $Item3Total = $_POST['Item3Total'];
-    $Item4Desc = $_POST['Item4Desc'];
-    $Item4Total = $_POST['Item4Total'];
-    $GrandTotal = $_POST['GrandTotal'];
+    $Item1Desc = mysqli_real_escape_string($conn, $_POST['Item1Desc']);
+    $Item1Total = mysqli_real_escape_string($conn, $_POST['Item1Total']);
+    $Item2Desc = mysqli_real_escape_string($conn, $_POST['Item2Desc']);
+    $Item2Total = mysqli_real_escape_string($conn, $_POST['Item2Total']);
+    $Item3Desc = mysqli_real_escape_string($conn, $_POST['Item3Desc']);
+    $Item3Total = mysqli_real_escape_string($conn, $_POST['Item3Total']);
+    $Item4Desc = mysqli_real_escape_string($conn, $_POST['Item4Desc']);
+    $Item4Total = mysqli_real_escape_string($conn, $_POST['Item4Total']);
+    $GrandTotal = mysqli_real_escape_string($conn, $_POST['GrandTotal']);
 
     $PV = "UPDATE pv SET 
     ReferenceNum = '$ReferenceNum',
